@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ojas is a cutie
+	hello
 </body>
 </html>
