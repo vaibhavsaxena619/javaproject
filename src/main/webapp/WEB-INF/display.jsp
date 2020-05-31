@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ojas is a cutie
+	<form action="url">
+		<input type="text" name="city"><br>
+		<input type="submit" value="Submit">
+	</form>
 </body>
 </html>
