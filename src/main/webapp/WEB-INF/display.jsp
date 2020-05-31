@@ -11,5 +11,6 @@
 		<input type="text" name="city"><br>
 		<input type="submit" value="Submit">
 	</form>
+
 </body>
 </html>
