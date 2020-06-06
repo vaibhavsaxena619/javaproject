@@ -3,6 +3,7 @@ package com.cisco.service;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -19,10 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class MyService {
 	
-	public void test()
-	{
-		System.out.println("hello");
-	}
+	
 
 	public String getUrl(String city) throws IOException, ParseException {
 		
@@ -59,7 +57,7 @@ public class MyService {
 		return cord;
 	}
 
-	public String getWeather(String longitude, String latitude) throws IOException, ParseException {
+	public JSONObject getWeather(String longitude, String latitude) throws IOException, ParseException {
 		
 		String urlString = "http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&"+"lon="+longitude+"&appid=ecddfa734542b6a1f9d971eeed5f1109";
 		URL url = new URL(urlString);
@@ -82,12 +80,12 @@ public class MyService {
 			sc.close();
 		}
 		
-		 ObjectMapper mapper = new ObjectMapper();	
-		 Map<String, String> map = mapper.readValue(inline, Map.class);
-		 System.out.println(map.values());
-		 
-	
-		return null;
+		JSONParser parser = new JSONParser();
+		JSONObject ob1 = (JSONObject) parser.parse(inline);
+		JSONObject ob2=(JSONObject) ob1.get("main");
+		
+		
+		return ob2;
 	}
 
 }

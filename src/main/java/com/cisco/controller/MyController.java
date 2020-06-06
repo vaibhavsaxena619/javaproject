@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +26,6 @@ public class MyController {
 	@RequestMapping("/geo")
 	public String add()
 	{
-		service.test();
 		return "display";
 		//System.out.println("hello");
 	}
@@ -44,11 +44,23 @@ public class MyController {
 	}
 	
 	@RequestMapping("/weather")
-	public void weather(@RequestParam("longitude") String longitude, @RequestParam("latitude") String latitude,HttpServletRequest request, HttpServletResponse reqResponse) throws IOException, ParseException
+	public ModelAndView weather(@RequestParam("longitude") String longitude, @RequestParam("latitude") String latitude,HttpServletRequest request, HttpServletResponse reqResponse) throws IOException, ParseException
 	{	
-		String data = service.getWeather(longitude,latitude);
+		JSONObject job = service.getWeather(longitude, latitude);
 		ModelAndView mv = new ModelAndView();
 		
+		mv.addObject("humidity", job.get("humidity"));
+		mv.addObject("pressure", job.get("pressure"));
+		mv.addObject("temp_max", job.get("temp_max"));
+		mv.addObject("temp_min", job.get("temp_min"));
+		mv.addObject("sea_level", job.get("sea_level"));
+		mv.addObject("temp", job.get("temp"));
+		mv.addObject("grnd_level", job.get("grnd_level"));
+		mv.addObject("feels_like", job.get("feels_like"));
+		
+		mv.setViewName("weat");
+		
+		return mv;
 	}
 
 }
